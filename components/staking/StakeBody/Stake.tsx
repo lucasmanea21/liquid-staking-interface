@@ -1,0 +1,68 @@
+import { Button } from '@chakra-ui/react';
+import { ContractFunction, TokenPayment } from '@elrondnetwork/erdjs/out';
+import { useAtom } from 'jotai';
+import React from 'react';
+import { CONTRACT_ADDRESS } from '../../../config';
+import { useScTransaction } from '../../../hooks/core/useScTransaction';
+import { egldValueAtom, stEgldValueAtom } from '../../../store/atom';
+import Input from '../Input';
+import BigNumber from 'bignumber.js';
+import StatsCard from '../StatsCard';
+import { stake } from '../../../api/transactions';
+import { TransactionPendingModal } from '../../tools/TransactionPending';
+import { useLoginInfo } from '../../../hooks/auth/useLoginInfo';
+import { LoginMethodsEnum } from '../../../types/enums';
+
+const Stake = () => {
+  const [egldValue, setEgldValue] = useAtom(egldValueAtom);
+  const [stEgldValue, setStEgldValue] = useAtom(stEgldValueAtom);
+  const { loginMethod } = useLoginInfo();
+
+  const { pending, triggerTx, transaction, error } = useScTransaction();
+
+  console.log('transaction', transaction);
+
+  const getAdditionalPendingMessage = () => {
+    if (loginMethod === LoginMethodsEnum.walletconnect) {
+      return 'Sign the transaction using Maiar mobile app. It will take some time to finish. You can always close this message. You will get the transaction hash when finished.';
+    }
+    if (loginMethod === LoginMethodsEnum.ledger) {
+      return 'Sign the transaction using Ledger HW. It will take some time to finish. You can always close this message. You will get the transaction hash when finished.';
+    }
+    return 'You transaction is sent and you will soon see your stEGLD in your wallet. You can always close this message.';
+  };
+  console.log('pending, transaction, error', pending, transaction, error);
+
+  return (
+    <>
+      <p className="text-lg">Stake</p>
+      <div className="flex flex-col space-y-5">
+        <Input token="EGLD" value={egldValue} isStake />
+        <Input token="stEGLD" value={stEgldValue} isStake />
+      </div>
+      <StatsCard />
+      <Button
+        className="w-full"
+        bgColor="blue.500"
+        onClick={() =>
+          stake({
+            triggerTx: triggerTx,
+            // todo: make this work with < 1 EGLD, by fixing decimals
+            value: Number(egldValue) / 10 ** 18,
+          })
+        }
+      >
+        Stake now
+      </Button>{' '}
+      <TransactionPendingModal
+        isOpen={pending}
+        successTxHash={transaction?.getHash().toString()}
+        txError={error}
+        additionalMessage={getAdditionalPendingMessage()}
+        isStake={true}
+      />
+    </>
+  );
+};
+
+export default Stake;

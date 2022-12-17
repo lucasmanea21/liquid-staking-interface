@@ -1,3 +1,14 @@
+### [4.1.0](https://github.com/xdevguild/nextjs-dapp-template/releases/tag/v4.1.0) (2022-12-17)
+- added `ProtectedPageWrapper` component - client side only 'gate keeper', check README.md for more info
+- fix for the `useApiCall` hook
+- npm dependencies updates
+
+### [4.0.0](https://github.com/xdevguild/nextjs-dapp-template/releases/tag/v4.0.0) (2022-12-04)
+- changes in how the API proxy work
+- renamed env variables
+- check the [README.md](https://github.com/xdevguild/nextjs-dapp-template#working-with-the-env-and-config-files) and `.env.example` file for more info
+- thanks to @janniksam
+
 ### [3.1.0](https://github.com/xdevguild/nextjs-dapp-template/releases/tag/v3.1.0) (2022-12-03)
 - rewritten useScQuery, but it keeps backward compatibility, you can still use simple data types like number, string and boolan as the results without ABI, if you need to catch more complex data types, you need to provide the ABI file, check for more info in the README.md file
 - dependencies updates

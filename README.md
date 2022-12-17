@@ -221,20 +221,40 @@ const { loginMethod, expires, loginToken, signature } = useLoginInfo();
 
 #### useApiCall()
 
-The hook provides a convenient way of doing custom API calls unrelated to transactions or smart contract queries. By default, it will use MultiversX API endpoint. But it can be any type of API, not only MultiversX API. In that case, you would need to pass the `{ baseEndpoint: "https://some-api.com" }` in options
+The hook provides a convenient way of doing custom API calls unrelated to transactions or smart contract queries. By default, it will use MultiversX API endpoint. But it can be any type of API, not only MultiversX API. In that case, you would need to pass the `{ baseEndpoint: "https://some-api.com" }`
 
 ```jsx
 const { data, isLoading, isValidating, fetch, error } = useApiCall<Token[]>({
-  url: `/accounts/<some_erd_address_here>/tokens`, // can be any API endpoint without the host, because it is already handled internally
+  url: `/accounts/<some_erd_address_here>/tokens`, // can be any API path without the host, because the host is already handled internally
   autoInit: true, // similar to useScQuery
   type: 'get', // can be get, post, delete, put
   payload: {},
   options: {}
+  baseEndpoint: undefined, // any custom API endpoint, by default MultiversX API
 });
 ```
 
 You can pass the response type. Returned object is the same as in `useScQuery`
 The hook uses `swr` and native `fetch` under the hood.
+
+### ProtectedPageWrapper
+
+The component wraps your page contents and will display them only for logged-in users. Otherwise, it will redirect to a defined path. Remember that this is only a client-side check. So don't rely on it with the data that should be private and secured.
+
+```jsx
+import { ProtectedPageWrapper } from './components/tools/ProtectedPageWrapper';
+
+const Profile = () => {
+  return (
+    <ProtectedPageWrapper>
+      <Text>The content for logged-in only!</Text>
+      <Text>For example the profile page or any other that should be accessible only for logged-in users</Text>
+    </ProtectedPageWrapper>
+  );
+};
+
+export default Profile;
+```
 
 ### Working with the API
 
@@ -262,8 +282,27 @@ Here are all variables:
 # MultiversX chain (can be devnet, testnet, mainnet)
 NEXT_PUBLIC_MULTIVERSX_CHAIN = devnet
 
-# This is the masked/proxied public API endpoint
-# only current instance of the Dapp can use it if only API_ALLOWED_DAPP_HOST is set
+#
+# Either the public API endpoint of your MultiversX api
+# or the masked proxy that will be used instead.
+#
+# You have three options:
+#
+# 1. By commenting this out the dapp will use the default
+#    MultiversX api endpoint (e.g. https://devnet-api.elrond.com)
+#
+#    Note: MULTIVERSX_PRIVATE_API needs to be removed/commented out.
+#
+# 2. Set this to an absolute address to use a custom MultiversX api endpoint
+#    (e.g. http://dev.mydomain.com)
+#
+#    Note: MULTIVERSX_PRIVATE_API needs to be removed/commented out.
+#
+# 3. Enter a relative path to proxy/mask your MultiversX api endpoint (e.g. /api/multiversx)
+#    Only current instance of the Dapp can use it if only API_ALLOWED_DAPP_HOST is set.
+#
+#    Note: MULTIVERSX_PRIVATE_API must include the actual MultiversX API endpoint.
+#
 NEXT_PUBLIC_MULTIVERSX_API = /api/multiversx
 
 # This is basically the main domain of your dapp
@@ -273,9 +312,11 @@ NEXT_PUBLIC_DAPP_HOST = http://localhost:3000
 # Private variables (used on the backend)
 # =============================================
 
-# Your main MultiversX API can be a custom one. There won't be a possibility
-# to reveal this endpoint, it will be masked by NEXT_PUBLIC_MULTIVERSX_API
-MULTIVERSX_CUSTOM_API = https://devnet-api.elrond.com
+# The MultiversX api endpoint, that is being masked/proxied.
+# This can be either a custom api endpoint or the default MultiversX api endpoint.
+# You will have to delete this or comment this out, if you don't wanna
+# mask / proxy your MultiversX api endpoint.
+MULTIVERSX_PRIVATE_API = https://devnet-api.elrond.com
 
 # Only this host will be allowed to consume the API (optional)
 # It will work only inside the Dapp, no one will be able to use the endpoint, even in browser
@@ -333,12 +374,16 @@ Here are other deployment solutions: [NextJS Deployment](https://nextjs.org/docs
 
 ### Other solutions
 
-If you would like to test other templates:
+The same dapp, but with Tailwind instead Chakra UI:
+
+- [nextjs-dapp-template-tw](https://github.com/xdevguild/nextjs-dapp-template-tw)
+
+If you would like to test other templates check:
 
 - [erd-next-starter](https://github.com/Elrond-Giants/erd-next-starter)
 - [dapp-template](https://github.com/ElrondNetwork/dapp-template)
 
-Dapps using it (send the links if you used it, use issues here on GitHub):
+Dapps using the template (send the links if you used it, use issues here on GitHub):
 
 - [Elven Tools Dapp](https://dapp-demo.elven.tools/)
 - [MultiversX ESDT Faucet Dapp](https://devnet-elrond-esdt-faucet.netlify.app/)
