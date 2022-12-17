@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.card {
+  @apply max-w-[500px] md:w-2/3 w-full sm:w-3/4 bg-stone-800 p-10 rounded-md items-start text-left;
+}
+
+/* Navigation */
+
+.nav {
+  @apply flex flex-row items-center justify-center w-full gap-5 px-5 py-3 rounded-md md:w-auto;
+}
+
+/* Inputs */
+
+.selected {
+  @apply bg-gray-700 !important;
+}
+
+.input {
+  @apply flex flex-col items-center justify-center text-black bg-white rounded-md;
+}
+
+.input:focus {
+  @apply outline-none;
+}
+
+.input-overlay {
+  @apply absolute top-0 flex items-center justify-between w-full h-full bg-transparent;
+}
+
+.unstake-card {
+  @apply w-full p-4 rounded-md cursor-pointer text-start bg-slate-400;
+}
+
+.stats-item {
+  @apply flex flex-row justify-between w-full;
+}

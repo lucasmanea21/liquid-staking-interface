@@ -19,7 +19,7 @@ export const Logo = () => {
           fontWeight="black"
           color="dappTemplate.white"
         >
-          MultiversX Dapp Template
+          Wave Protocol
         </Text>
       </Box>
     </NextLink>

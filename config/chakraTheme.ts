@@ -7,7 +7,7 @@ export const theme = extendTheme({
         minHeight: '100vh',
         overflowX: 'hidden',
         bgGradient:
-          'linear-gradient(90deg, dappTemplate.bgStripes 0.1%, dappTemplate.dark.base 0.1%, dappTemplate.dark.base 50%, dappTemplate.bgStripes 50%, dappTemplate.bgStripes 50.1%, dappTemplate.dark.base 50.1%, dappTemplate.dark.base 100%);',
+          'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(46,46,47,1) 19%, rgba(10,34,87,1) 39%, rgba(12,45,107,1) 60%, rgba(15,82,102,0.8421646246389181) 100%);',
         bgSize: '700px',
         backgroundPositionX: '150px',
         color: 'dappTemplate.white',
