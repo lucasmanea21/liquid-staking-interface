@@ -2,7 +2,11 @@ import { Button } from '@chakra-ui/react';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { useScTransaction } from '../../../hooks/core/useScTransaction';
-import { currentEpochAtom, unstakeEgldValueAtom } from '../../../store/atom';
+import {
+  currentEpochAtom,
+  exchangeRateAtom,
+  unstakeEgldValueAtom,
+} from '../../../store/atom';
 import {
   BigUIntValue,
   BytesValue,
@@ -98,6 +102,7 @@ const UndelegatedEgld = ({
 const Unstake = () => {
   const { address } = useAccount();
   const [unstakeEgldValue, setUnstakeEgldValue] = useAtom(unstakeEgldValueAtom);
+  const [exchangeRate, setExchangeRate] = useAtom(exchangeRateAtom);
   const [unstakeType, setUnstakeType] = useState('now');
   const { loginMethod } = useLoginInfo();
   const [currentEpoch, setCurrentEpoch] = useAtom(currentEpochAtom);
@@ -142,7 +147,10 @@ const Unstake = () => {
         <div className="flex space-x-5">
           <UnstakeCard
             type="now"
-            amount={Number(unstakeEgldValue) - 0.003 * Number(unstakeEgldValue)}
+            amount={
+              Number(unstakeEgldValue) / exchangeRate -
+              (0.003 * Number(unstakeEgldValue)) / exchangeRate
+            }
             onClick={() => {
               setUnstakeType('now');
             }}
@@ -150,7 +158,7 @@ const Unstake = () => {
             comingSoon={true}
           />
           <UnstakeCard
-            amount={Number(unstakeEgldValue)}
+            amount={Number(unstakeEgldValue) / exchangeRate}
             onClick={() => {
               setUnstakeType('delayed');
             }}
