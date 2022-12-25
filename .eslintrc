@@ -6,7 +6,8 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "valtio/state-snapshot-rule": "off"
+    "valtio/state-snapshot-rule": "off",
+    "@typescript-eslint/ban-ts-comment": "warn"
   },
   "plugins": ["@typescript-eslint"],
   "parser": "@typescript-eslint/parser"
