@@ -10,7 +10,6 @@ const Navbar = () => {
       </div>
     );
   };
-  }
 
   const UserBar = () => {
     const balance = 5;
