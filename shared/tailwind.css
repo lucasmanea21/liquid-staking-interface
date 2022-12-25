@@ -15,7 +15,7 @@
 /* Inputs */
 
 .selected {
-  @apply bg-gray-700 !important;
+  @apply bg-blue-600 !important;
 }
 
 .input {
@@ -31,7 +31,7 @@
 }
 
 .unstake-card {
-  @apply w-full p-4 rounded-md cursor-pointer text-start bg-slate-400;
+  @apply w-full h-full p-4 rounded-md cursor-pointer text-start bg-slate-400;
 }
 
 .stats-item {

@@ -8,12 +8,11 @@ import { Item } from './StatsPannel';
 const StatsCard = () => {
   const [exchangeRate, setExchangeRate] = useAtom(exchangeRateAtom);
 
-  console.log('exchangeRate', exchangeRate);
   return (
     <div className="flex flex-col items-start my-8 text-left">
       <Item
         name="Exchange Rate:"
-        value={`1 stEGLD = ${(1 / exchangeRate).toFixed(4)} EGLD`}
+        value={`1 stEGLD = ${Number(Number(1 / exchangeRate).toFixed(4))} EGLD`}
       />
       <Item name="APR" value={`50%`} />
       <Item name="Deposit fee:" value={`0`} />

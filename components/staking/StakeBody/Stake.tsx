@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Button, useDisclosure } from '@chakra-ui/react';
 import { ContractFunction, TokenPayment } from '@elrondnetwork/erdjs/out';
 import { useAtom } from 'jotai';
 import React from 'react';
@@ -12,6 +12,7 @@ import { stake } from '../../../api/transactions';
 import { TransactionPendingModal } from '../../tools/TransactionPending';
 import { useLoginInfo } from '../../../hooks/auth/useLoginInfo';
 import { LoginMethodsEnum } from '../../../types/enums';
+import { LoginModalButton } from '../../tools/LoginModalButton';
 
 const Stake = () => {
   const [egldValue, setEgldValue] = useAtom(egldValueAtom);
@@ -20,7 +21,11 @@ const Stake = () => {
 
   const { pending, triggerTx, transaction, error } = useScTransaction();
 
-  console.log('transaction', transaction);
+  // const {
+  //   isOpen: opened,
+  //   onOpen: open,
+  //   onClose: close,
+  // } = useDisclosure({ onClose, onOpen });
 
   const getAdditionalPendingMessage = () => {
     if (loginMethod === LoginMethodsEnum.walletconnect) {
@@ -31,28 +36,34 @@ const Stake = () => {
     }
     return 'You transaction is sent and you will soon see your stEGLD in your wallet. You can always close this message.';
   };
-  console.log('pending, transaction, error', pending, transaction, error);
 
   return (
     <>
       <p className="text-lg">Stake</p>
       <div className="flex flex-col space-y-5">
         <Input token="EGLD" value={egldValue} isStake />
-        <Input token="stEGLD" value={stEgldValue} isStake />
+        <div>
+          <p className="my-2 text-sm">You will receive</p>
+          <Input
+            token="stEGLD"
+            value={Number(Number(stEgldValue).toFixed(4)).toString()}
+            isStake
+          />
+        </div>
       </div>
       <StatsCard />
       <Button
         className="w-full"
         bgColor="blue.500"
-        onClick={() =>
+        onClick={() => {
           stake({
             triggerTx: triggerTx,
             // todo: make this work with < 1 EGLD, by fixing decimals
             value: Number(egldValue) / 10 ** 18,
-          })
-        }
+          });
+        }}
       >
-        Stake now
+        {!loginMethod ? 'Connect' : 'Stake now'}
       </Button>{' '}
       <TransactionPendingModal
         isOpen={pending}

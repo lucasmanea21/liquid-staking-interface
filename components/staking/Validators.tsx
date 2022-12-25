@@ -9,7 +9,6 @@ const Validators = () => {
   const [validators, setValidators] = useState([]);
   const [validatorsWithStake, setValidatorsWithStake] = useState([]);
 
-  console.log('abi', abi);
   const {
     data: queryResult,
     fetch, // you can always trigger the query manually if 'autoInit' is set to false
@@ -34,7 +33,7 @@ const Validators = () => {
       // for each item, parse the address to bech32
       items = items.map((item: any) => {
         const address = new Address(item.value);
-        console.log('item.value, address.hex(', item.value, address.bech32());
+
         return address.bech32().valueOf();
       });
 
@@ -60,8 +59,6 @@ const Validators = () => {
   //       autoInit: true, // you can enable or disable trigger of the query on component mount
   //     });
   //   });
-
-  console.log('validators', validators);
 
   return (
     <div>

@@ -70,22 +70,26 @@ const UndelegatedEgld = ({
     stats?.epoch && setCurrentEpoch(stats?.epoch);
   }, [stats]);
 
-  console.log('stats', stats);
-
   return (
-    <div className="relative flex flex-row items-center justify-between my-5 text-left">
-      <div>
-        {/* <TokenImage token="EGLD" /> */}
-        <div>{amount} uEGLD</div>
+    <div className="relative flex flex-col items-start items-center justify-between my-5 space-y-3 text-left sm:space-y-0 sm:flex-row">
+      <div className="items-start text-left">
+        {/* <TokenImage token="stEGLD" /> */}
+        <p className="text-lg sm:text-md">
+          {Number(Number(amount).toFixed(4))} uEGLD
+        </p>
       </div>
       <div className="flex items-center space-x-4">
-        <p className="text-sm">Claimable in epoch {epochStarted + 1}</p>
+        {!isClaimable && (
+          <p className="text-sm text-gray-300 ">
+            Claimable in epoch {epochStarted + 1}
+          </p>
+        )}
         <Button
           bgColor="blue.500"
           onClick={() =>
             claim({
               triggerTx: triggerTx,
-              value: (0.05).toString(),
+              value: amount.toString(),
               nonce: nonce,
               address: address,
             })
@@ -144,7 +148,7 @@ const Unstake = () => {
             setUnstakeEgldValue(e.target.value);
           }}
         />
-        <div className="flex space-x-5">
+        <div className="flex flex-col space-y-3 sm:space-x-5 sm:flex-row">
           <UnstakeCard
             type="now"
             amount={
@@ -175,7 +179,7 @@ const Unstake = () => {
           unstake({ triggerTx: triggerTx, value: unstakeEgldValue })
         }
       >
-        Unstake
+        {loginMethod ? 'Unstake' : 'Connect'}
       </Button>{' '}
       {uEgldTokens && (
         <div className="mt-10">

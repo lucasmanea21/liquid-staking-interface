@@ -5,7 +5,7 @@ export const dappHostname = process.env.NEXT_PUBLIC_DAPP_HOST;
 
 // HTML metata and og tags, default values for MetaHead.tsx component
 export const defaultMetaTags = {
-  title: 'MultiversX NextJS dapp demo - MultiversX blockchain',
-  description: 'Open source Dapp template for the MultiversX blockchain.',
-  image: `${dappHostname}/og-image.png`,
+  title: 'Stake | Wave Protocol',
+  description: 'The staking portal for Wave Protocol',
+  image: `${dappHostname}/logo.png`,
 };

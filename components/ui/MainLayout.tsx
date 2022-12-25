@@ -1,7 +1,7 @@
 import { Container, Box } from '@chakra-ui/react';
 import { FC, PropsWithChildren } from 'react';
 import { MetaHead, MetaHeadProps } from './MetaHead';
-import { Footer } from './Footer';
+import Footer from './Footer';
 
 export const MainLayout: FC<PropsWithChildren<MetaHeadProps>> = ({
   children,

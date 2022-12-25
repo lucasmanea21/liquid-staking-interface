@@ -55,7 +55,6 @@ export const claim = async ({
   value: string;
   nonce: number;
 }) => {
-  console.log('address', address);
   triggerTx({
     func: new ContractFunction('ESDTNFTTransfer'),
     gasLimit: 50000000,

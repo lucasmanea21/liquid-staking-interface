@@ -19,10 +19,63 @@ import {
 } from '../store/atom';
 import { useAtom } from 'jotai';
 import StakeBody from '../components/staking/StakeBody/StakeBody';
+import abi from '../assets/abi/stakeContract.abi.json';
+import { useLoginInfo } from '../hooks/auth/useLoginInfo';
 
 const Staking = () => {
   const [isStakeSelected, setIsStakeSelected] = useAtom(isStakeSelectedAtom);
+  const [stakeAmountsParsed, setStakeAmountsParsed] = useState<any>([]);
+  const { loginMethod, expires, loginToken, signature } = useLoginInfo();
 
+  const { data: stakeAmounts } = useScQuery<any>({
+    type: SCQueryType.COMPLEX,
+    payload: {
+      scAddress: CONTRACT_ADDRESS,
+      funcName: 'getStakeAmounts',
+    },
+    abiJSON: abi,
+    autoInit: true,
+  });
+
+  const { data: rewardsAmount } = useScQuery<any>({
+    type: SCQueryType.COMPLEX,
+    payload: {
+      scAddress: CONTRACT_ADDRESS,
+      funcName: 'getRewardsAmounts',
+    },
+    abiJSON: abi,
+    autoInit: true,
+  });
+
+  const { data: stakeAmountsFiltered } = useScQuery<any>({
+    type: SCQueryType.COMPLEX, // can be int or string
+    payload: {
+      scAddress: CONTRACT_ADDRESS,
+      funcName: 'getFilteredStakeAmounts',
+    },
+    abiJSON: abi,
+    autoInit: true,
+  });
+
+  // useEffect(() => {
+  //   if (stakeAmounts?.firstValue?.items && stakeAmountsParsed.length === 0) {
+  //     const parsed = stakeAmounts?.firstValue?.items.map((item: any) => {
+  //       return {
+  //         epoch: item.fields[0].value.value.valueOf(),
+  //         amount: item.fields[1].value.value.valueOf() / 10 ** 18,
+  //       };
+  //     });
+  //     setStakeAmountsParsed(parsed);
+  //   }
+  // }, [stakeAmounts]);
+
+  // console.log(
+  //   'stakeAmounts',
+  //   stakeAmounts,
+  //   stakeAmounts?.firstValue?.items[0].items[1].value.valueOf(),
+  //   stakeAmountsParsed,
+  //   rewardsAmount
+  // );
   const ChooseButton = ({ name }: any) => {
     const isStake = name === 'Stake';
 
@@ -70,7 +123,7 @@ const Staking = () => {
         </div>
         <StakeBody />
         <StatsPannel />
-        <InfoPannel />
+        {/* <InfoPannel /> */}
       </div>
     </MainLayout>
   );

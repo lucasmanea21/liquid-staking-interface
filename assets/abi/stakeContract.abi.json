@@ -10,7 +10,7 @@
     "contractCrate": {
       "name": "sc-liquid-staking-mock",
       "version": "0.0.0",
-      "git_version": "72f9ef4-modified"
+      "git_version": "82ae42c-modified"
     },
     "framework": {
       "name": "elrond-wasm",
@@ -52,6 +52,20 @@
       "outputs": []
     },
     {
+      "name": "getStakeAdmin",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [],
+      "outputs": []
+    },
+    {
+      "name": "getRewardsAdmin",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [],
+      "outputs": []
+    },
+    {
       "name": "push_validators",
       "onlyOwner": true,
       "mutability": "mutable",
@@ -67,18 +81,16 @@
       "name": "delegateAdmin",
       "onlyOwner": true,
       "mutability": "mutable",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "BigUint"
+        }
+      ],
       "outputs": []
     },
     {
-      "name": "redelegate",
-      "onlyOwner": true,
-      "mutability": "mutable",
-      "inputs": [],
-      "outputs": []
-    },
-    {
-      "name": "undelegateAdmin",
+      "name": "delegate_direct",
       "onlyOwner": true,
       "mutability": "mutable",
       "inputs": [
@@ -94,15 +106,31 @@
       "outputs": []
     },
     {
-      "name": "getValidatorsCount",
-      "mutability": "readonly",
+      "name": "undelegate_direct",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [
+        {
+          "name": "address",
+          "type": "Address"
+        },
+        {
+          "name": "amount",
+          "type": "BigUint"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "redelegate",
+      "onlyOwner": true,
+      "mutability": "mutable",
       "inputs": [],
       "outputs": []
     },
     {
-      "name": "clearValidators",
-      "onlyOwner": true,
-      "mutability": "mutable",
+      "name": "getValidatorsCount",
+      "mutability": "readonly",
       "inputs": [],
       "outputs": []
     },
@@ -140,18 +168,6 @@
       ]
     },
     {
-      "name": "set_total_staked",
-      "onlyOwner": true,
-      "mutability": "mutable",
-      "inputs": [
-        {
-          "name": "amount",
-          "type": "BigUint"
-        }
-      ],
-      "outputs": []
-    },
-    {
       "name": "getTotalStaked",
       "mutability": "readonly",
       "inputs": [],
@@ -182,18 +198,6 @@
       ]
     },
     {
-      "name": "setDeltaStake",
-      "onlyOwner": true,
-      "mutability": "mutable",
-      "inputs": [
-        {
-          "name": "amount",
-          "type": "BigInt"
-        }
-      ],
-      "outputs": []
-    },
-    {
       "name": "getDeltaStake",
       "mutability": "readonly",
       "inputs": [],
@@ -202,18 +206,6 @@
           "type": "BigInt"
         }
       ]
-    },
-    {
-      "name": "setMappingIndex",
-      "onlyOwner": true,
-      "mutability": "mutable",
-      "inputs": [
-        {
-          "name": "index",
-          "type": "u32"
-        }
-      ],
-      "outputs": []
     },
     {
       "name": "getMappingIndex",
@@ -226,16 +218,87 @@
       ]
     },
     {
-      "name": "setServiceFee",
-      "onlyOwner": true,
-      "mutability": "mutable",
-      "inputs": [
+      "name": "getRewardsMappingIndex",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
         {
-          "name": "amount",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "getStakeAmounts",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "variadic<multi<u64,BigUint>>",
+          "multi_result": true
+        }
+      ]
+    },
+    {
+      "name": "getRewardsAmounts",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "variadic<multi<u64,BigUint>>",
+          "multi_result": true
+        }
+      ]
+    },
+    {
+      "name": "getStakeInfoFinished",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "getFilteredStakeAmountsLength",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "getFilteredStakeAmounts",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "List<StakeAmount>"
+        }
+      ]
+    },
+    {
+      "name": "getRewardsAmount",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "variadic<RewardsAmount>",
+          "multi_result": true
+        }
+      ]
+    },
+    {
+      "name": "getCallbackResult",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
           "type": "BigUint"
         }
-      ],
-      "outputs": []
+      ]
     },
     {
       "name": "getServiceFee",
@@ -266,6 +329,73 @@
           "type": "TokenIdentifier"
         }
       ]
+    },
+    {
+      "name": "setServiceFee",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "BigUint"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "setMappingIndex",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [
+        {
+          "name": "index",
+          "type": "u32"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "setRewardsMappingIndex",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [
+        {
+          "name": "index",
+          "type": "u32"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "setDeltaStake",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "BigInt"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "setTotalStaked",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "BigUint"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "clearValidators",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [],
+      "outputs": []
     },
     {
       "name": "issueToken",
@@ -368,5 +498,32 @@
     }
   ],
   "hasCallback": true,
-  "types": {}
+  "types": {
+    "RewardsAmount": {
+      "type": "struct",
+      "fields": [
+        {
+          "name": "epoch",
+          "type": "u64"
+        },
+        {
+          "name": "amount",
+          "type": "BigUint"
+        }
+      ]
+    },
+    "StakeAmount": {
+      "type": "struct",
+      "fields": [
+        {
+          "name": "epoch",
+          "type": "u64"
+        },
+        {
+          "name": "amount",
+          "type": "BigUint"
+        }
+      ]
+    }
+  }
 }

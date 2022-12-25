@@ -6,8 +6,9 @@ export const theme = extendTheme({
       body: {
         minHeight: '100vh',
         overflowX: 'hidden',
-        bgGradient:
-          'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(46,46,47,1) 19%, rgba(10,34,87,1) 39%, rgba(12,45,107,1) 60%, rgba(15,82,102,0.8421646246389181) 100%);',
+        bg: '#252b45',
+        // bgGradient:
+        //   'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(46,46,47,1) 19%, rgba(10,34,87,1) 39%, rgba(12,45,107,1) 60%, rgba(15,82,102,0.8421646246389181) 100%);',
         bgSize: '700px',
         backgroundPositionX: '150px',
         color: 'dappTemplate.white',
@@ -49,9 +50,9 @@ export const theme = extendTheme({
         darker: '#1c7bda',
       },
       color2: {
-        lighter: '#b0dd49',
-        base: '#A2D729',
-        darker: '#8ab722',
+        lighter: '#4f87f7',
+        base: '#375ff0',
+        darker: '#2848bd',
       },
       color3: {
         lighter: '#fb9567',

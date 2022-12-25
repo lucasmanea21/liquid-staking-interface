@@ -9,6 +9,7 @@ import {
 } from '../../store/atom';
 import { useAtom } from 'jotai';
 import logo from '../../assets/images/EGLD.png';
+import stEgldLogo from '../../assets/images/STEGLD.png';
 import Image from 'next/image';
 import { useApiCall } from '../../hooks/core/useApiCall';
 import { ST_EGLD_TOKEN_ID } from '../../config';
@@ -23,20 +24,24 @@ const MaxButton = ({ handleMax }: any) => {
   );
 };
 
-export const TokenImage = (token: any) => (
-  <div className="absolute z-10 items-center justify-center w-10 h-10 text-black rounded-full top-3 left-3 bg-slate-400">
-    {token == 'stEGLD' ? (
-      <p className="flex items-center justify-center h-full">st</p>
-    ) : (
-      <Image src={logo} alt="EGLD" width={40} height={40} />
-    )}
-  </div>
-);
+export const TokenImage = ({ token }: { token: any }) => {
+  // console.log('token', token);
+  return (
+    <div className="absolute z-10 items-center justify-center w-10 h-10 text-black rounded-full top-3 left-3 bg-slate-400">
+      <Image
+        src={token != 'EGLD' ? stEgldLogo : logo}
+        alt="EGLD"
+        width={40}
+        height={40}
+      />
+    </div>
+  );
+};
 
 const Balance = ({ balance, token }: any) => (
   <div className="items-start justify-start w-full pl-5 my-2 text-left">
     <p className="text-sm">
-      Balance: {(Number(balance) / 10 ** 18).toFixed(4)} {token}
+      Balance: {Number(Number(balance / 10 ** 18).toFixed(4))} {token}
     </p>
   </div>
 );
@@ -73,7 +78,7 @@ const Input = ({ token, value, isStake }: any) => {
     options: {},
   });
 
-  console.log('data', data);
+  // console.log('data', data);
 
   return (
     <div className="input">
@@ -97,7 +102,7 @@ const Input = ({ token, value, isStake }: any) => {
         />
       </div>
       <Balance
-        balance={token == 'EGLD' ? balance : data && data[0]?.balance}
+        balance={token == 'EGLD' ? balance : data ? data[0]?.balance : 0}
         token={token}
       />
     </div>
