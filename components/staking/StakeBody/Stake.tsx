@@ -59,7 +59,7 @@ const Stake = () => {
           stake({
             triggerTx: triggerTx,
             // todo: make this work with < 1 EGLD, by fixing decimals
-            value: Number(egldValue) / 10 ** 18,
+            value: (Number(egldValue) / 10 ** 18).toString(),
           });
         }}
       >

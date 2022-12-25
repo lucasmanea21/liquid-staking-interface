@@ -53,7 +53,7 @@ const UndelegatedEgld = ({
     isValidating,
     fetch,
     error: apiError,
-  } = useApiCall<any[]>({
+  } = useApiCall<any>({
     url: `/stats`,
     autoInit: true, // similar to useScQuery
     type: 'get', // can be get, post, delete, put
@@ -162,6 +162,7 @@ const Unstake = () => {
             comingSoon={true}
           />
           <UnstakeCard
+            type="delayed"
             amount={Number(unstakeEgldValue) / exchangeRate}
             onClick={() => {
               setUnstakeType('delayed');
