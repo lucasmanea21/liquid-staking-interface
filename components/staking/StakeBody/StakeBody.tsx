@@ -29,7 +29,7 @@ const StakeBody = () => {
   });
 
   useEffect(() => {
-    setExchangeRate(!exchangeRateData ? 1 : exchangeRateData);
+    setExchangeRate(!exchangeRateData ? 1 : exchangeRateData / 10 ** 18);
   }, [exchangeRateData]);
 
   return (

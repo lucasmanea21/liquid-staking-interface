@@ -6,7 +6,7 @@ export const theme = extendTheme({
       body: {
         minHeight: '100vh',
         overflowX: 'hidden',
-        bg: '#252b45',
+        bg: '#18191a',
         // bgGradient:
         //   'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(46,46,47,1) 19%, rgba(10,34,87,1) 39%, rgba(12,45,107,1) 60%, rgba(15,82,102,0.8421646246389181) 100%);',
         bgSize: '700px',

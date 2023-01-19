@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CONTRACT_ADDRESS } from '../../config';
 import { SCQueryType, useScQuery } from '../../hooks/core/useScQuery';
 import { exchangeRateAtom } from '../../store/atom';
 import { useAtom } from 'jotai';
 import { Item } from './StatsPannel';
+import abi from '../../assets/abi/stakeContract.abi.json';
+import { Address } from '@elrondnetwork/erdjs/out';
 
 const StatsCard = () => {
+  const [validators, setValidators] = useState([]);
   const [exchangeRate, setExchangeRate] = useAtom(exchangeRateAtom);
 
   return (

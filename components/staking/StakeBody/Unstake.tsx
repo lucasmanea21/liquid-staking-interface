@@ -148,7 +148,7 @@ const Unstake = () => {
             setUnstakeEgldValue(e.target.value);
           }}
         />
-        <div className="flex flex-col space-y-3 sm:space-x-5 sm:flex-row">
+        <div className="flex flex-col  sm:space-x-5 sm:flex-row">
           <UnstakeCard
             type="now"
             amount={

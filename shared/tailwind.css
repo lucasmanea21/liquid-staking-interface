@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .card {
-  @apply max-w-[500px] md:w-2/3 w-full sm:w-3/4 bg-stone-800 p-10 rounded-md items-start text-left;
+  @apply max-w-[500px] md:w-2/3 w-full sm:w-3/4 bg-stone-800 p-10 rounded-md items-start text-left shadow-sm;
 }
 
 /* Navigation */
@@ -31,7 +31,7 @@
 }
 
 .unstake-card {
-  @apply w-full h-full p-4 rounded-md cursor-pointer text-start bg-slate-400;
+  @apply w-full h-full p-4 rounded-md cursor-pointer text-start bg-slate-400 m-0;
 }
 
 .stats-item {

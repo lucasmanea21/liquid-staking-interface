@@ -21,6 +21,7 @@ import { useAtom } from 'jotai';
 import StakeBody from '../components/staking/StakeBody/StakeBody';
 import abi from '../assets/abi/stakeContract.abi.json';
 import { useLoginInfo } from '../hooks/auth/useLoginInfo';
+import Menu from '../components/ui/Menu';
 
 const Staking = () => {
   const [isStakeSelected, setIsStakeSelected] = useAtom(isStakeSelectedAtom);
@@ -110,7 +111,10 @@ const Staking = () => {
   return (
     <MainLayout>
       <HeaderMenu>
-        <HeaderMenuButtons enabled={['auth']} />
+        <div className="flex gap-10">
+          <HeaderMenuButtons enabled={['auth']} />
+          <Menu />
+        </div>
       </HeaderMenu>
       <div className="flex flex-col items-center space-y-8 text-center">
         <div>

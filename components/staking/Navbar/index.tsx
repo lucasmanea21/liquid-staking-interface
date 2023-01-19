@@ -27,7 +27,8 @@ const Navbar = () => {
 
   return (
     <div>
-      <div></div>
+      <LogoBar />
+      <UserBar />
     </div>
   );
 };

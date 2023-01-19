@@ -18,7 +18,7 @@ const StatsPannel = () => {
         <Item name="stEGLD market cap:" value="$3,340,252" />
         <Item name="APR:" value="9.87%" />
         <Item name="Stakers:" value="503" />
-        {/* <Validators /> */}
+        <Validators />
       </div>
     </div>
   );
